@@ -4,20 +4,24 @@ body {
 }
 
 #about-div {
-    position:absolute;
-    bottom:10;
-    right:10;
-    font-family: Arial, Helvetica, sans-serif;
+  position:absolute;
+  bottom:10;
+  right:10;
+  font-family: Arial, Helvetica, sans-serif;
 }
 
 a:link {
-    color: black;
+  color: black;
 }
 
 a:visited {
-    color: black;
+  color: black;
 }
 
+#status-notice-div {
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 10px;
+}
 
 
 #status-div {
@@ -46,3 +50,5 @@ a:visited {
   font-family: Arial, Helvetica, sans-serif;
   /*whatever width you want*/
 }
+
+

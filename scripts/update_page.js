@@ -3,6 +3,7 @@ Modules.UpdatePage = (function(){
 
     const $$ = {
         status_div: $("#status-div"),
+        status_notice_div: $("#status-notice-div"),
     };
 
     const isBathtubFlooded = function(stageMeasurement, measurementUnits){
@@ -18,6 +19,7 @@ Modules.UpdatePage = (function(){
 
 
     const writeStatusToPage = function(isBathtubFlooded){
+        $$.status_notice_div.hide();
         if(isBathtubFlooded){
             $$.status_div.html("yeah");
         }else{
