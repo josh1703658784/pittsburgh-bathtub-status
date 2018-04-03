@@ -1,0 +1,37 @@
+
+<html>
+
+<head>
+    <title>bathtub status</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+
+<body>
+
+    <!-- https://stackoverflow.com/questions/396145/how-to-vertically-center-a-div-for-all-browsers -->
+    <div class="outer">
+        <div class="middle">
+            <div class="inner">
+                <div>
+                    Is the Pittsburgh Bathtub flooded n'at?
+                </div>
+                <div id="status-div">
+                    Loading...
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <script src="./scripts-lib/jquery-3.3.1.min.js"></script>
+    <script src="./scripts-lib/underscore-min.js"></script>
+    <script src="./scripts-lib/xml2json.min.js"></script>
+
+    <script src="./scripts/modules.js"></script>
+    <script src="./scripts/fetch_stages.js"></script>
+    <script src="./scripts/update_page.js"></script>
+    <script src="./scripts/main.js"></script>
+</body>
+
+
+</html>
