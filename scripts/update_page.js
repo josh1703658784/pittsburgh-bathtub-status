@@ -1,10 +1,12 @@
 Modules.UpdatePage = (function(){
     'use strict';
 
+
     const $$ = {
         status_div: $("#status-div"),
         status_notice_div: $("#status-notice-div"),
     };
+
 
     const isBathtubFlooded = function(stageMeasurement, measurementUnits){
         const floodStage = 25;
@@ -20,21 +22,21 @@ Modules.UpdatePage = (function(){
 
     const writeStatusToPage = function(isBathtubFlooded){
         $$.status_notice_div.hide();
+
         if(isBathtubFlooded){
             $$.status_div.html("yeah");
         }else{
             $$.status_div.html("nope");
         }
-        
     }
+
 
     const updatePage = function(stageObj){
         const { observedStage, stageUnits, timezone, time } = stageObj;
         const isFlooded = isBathtubFlooded(observedStage, stageUnits);
+
         writeStatusToPage(isFlooded);
-
     };
-
 
 
     const main = function(){
@@ -43,6 +45,7 @@ Modules.UpdatePage = (function(){
         };
     };
     return main();
+
 
 }());
 

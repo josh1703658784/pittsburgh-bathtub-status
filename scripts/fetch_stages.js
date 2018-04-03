@@ -4,24 +4,40 @@ Modules.FetchStages = (function(){
 
     const parseObservedEntry = function(observedEntryObj){
         return {
-            observedStage: parseInt(observedEntryObj.primary.__text),
-            stageUnits: observedEntryObj.primary._units, 
-            timezone: observedEntryObj.valid._timezone,
-            time: Date.parse(observedEntryObj.valid.__text),
+              observedStage : parseInt(observedEntryObj.primary.__text)
+            , stageUnits    : observedEntryObj.primary._units 
+            , timezone      : observedEntryObj.valid._timezone
+            , time          : Date.parse(observedEntryObj.valid.__text)
         };
     };
 
 
+    const xmlDocumentToString = function(xmlDocument){
+        return new XMLSerializer().serializeToString(xmlDocument);
+    };
+
+
+    const xmlStringToJson = function(xmlString){
+        return new X2JS().xml_str2json(xmlString);
+    };
+
+
+    const getDatumKeyFromXmlJson = function(xmlJson){
+        return xmlJson.site.observed.datum;
+    };
+
+    const parseObservedEntries = function(datum){
+        return _.map(datum, parseObservedEntry);
+    };
+
+
     const handleStageData = function(xmlDocument){
-        const xmlString = (new XMLSerializer()).serializeToString(xmlDocument);
-        const x2js = new X2JS();
-        const xmlAsJson = x2js.xml_str2json( xmlString ).site.observed.datum;
+        const handlerFn = _.compose(  parseObservedEntries
+                                    , getDatumKeyFromXmlJson
+                                    , xmlStringToJson
+                                    , xmlDocumentToString);
 
-        const result = _.chain(xmlAsJson)
-            .map(parseObservedEntry)
-            .value();
-
-        return result;
+        return handlerFn(xmlDocument);
     };
 
 
@@ -31,26 +47,25 @@ Modules.FetchStages = (function(){
 
 
     const fetchStages = function(){
-        console.log("fetching river stages");
-
-        const stageDataUrl = "https://water.weather.gov/ahps2/hydrograph_to_xml.php?gage=pttp1&output=xml"
-
-        return $.ajax({
-            url: stageDataUrl,
+        const ajaxOptions = {
+            url: "https://water.weather.gov/ahps2/hydrograph_to_xml.php?gage=pttp1&output=xml",
             dataType: "xml",
-        }).then(handleStageData)
-          .catch(failureHandler);
+        };
+
+        return $.ajax(ajaxOptions)
+                .then(handleStageData)
+                .catch(failureHandler);
     };
 
 
     const fetchMostRecentStage = function(){
-        return fetchStages().then(stagesArr => _.first(stagesArr));
+        return fetchStages()
+                .then(_.first);
     };
 
 
     const main = function(){
         return {
-            fetchStages: fetchStages,
             fetchMostRecentStage: fetchMostRecentStage,
         };
     }
