@@ -3,6 +3,18 @@ body {
     background-color: rgb(251,183,46);
 }
 
+#about-div {
+    position:absolute;
+    bottom:10;
+    right:10;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+ a:link {
+    color: black;
+}
+
+
 
 #status-div {
   font-size: 50px;
